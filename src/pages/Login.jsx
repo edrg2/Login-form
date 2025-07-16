@@ -9,7 +9,7 @@ export default function Login() {
         <Form />
         <p className="text-sm text-center text-gray-500">
           還沒有帳號?{" "}
-          <a href="#" className="font-medium text-blue-600 hover:text-blue-500">
+          <a href="#" className="font-medium text-blue-700 hover:text-blue-500">
             立即註冊
           </a>
         </p>

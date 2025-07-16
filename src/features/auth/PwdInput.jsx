@@ -28,14 +28,14 @@ export default function PwdInput() {
           >
             <FontAwesomeIcon
               icon={showPwd ? "eye-slash" : "eye"}
-              className="text-lg text-gray-700 hover:text-gray-900 cursor-pointer"
+              className="text-lg text-gray-700 hover:text-gray-500 cursor-pointer"
               fixedWidth
             />
           </button>
         </div>
       </div>
       <div className="mt-2 text-sm text-right">
-        <a href="#" className="font-medium text-blue-600 hover:text-blue-500">
+        <a href="#" className="font-medium text-blue-700 hover:text-blue-500">
           忘記密碼?
         </a>
       </div>
