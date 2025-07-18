@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default function PwdInput() {
+export default function PwdInput({ register, errors }) {
   const [showPwd, setShowPwd] = useState(false);
   return (
     <div>
@@ -18,6 +18,7 @@ export default function PwdInput() {
             id="password"
             name="password"
             type={showPwd ? "text" : "password"}
+            {...register("password")}
             placeholder="密碼"
             className="w-full py-2 pl-4 pr-11 text-gray-900 border rounded-md focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
           />
@@ -34,10 +35,18 @@ export default function PwdInput() {
           </button>
         </div>
       </div>
-      <div className="mt-2 text-sm text-right">
-        <a href="#" className="font-medium text-blue-700 hover:text-blue-500">
-          忘記密碼?
-        </a>
+
+      <div className="flex">
+        {errors.password && (
+          <p className="ml-12 mt-1 text-xs text-red-600">
+            {errors.password.message}
+          </p>
+        )}
+        <div className="ml-auto mt-2 text-sm">
+          <a href="#" className="font-medium text-blue-700 hover:text-blue-500">
+            忘記密碼?
+          </a>
+        </div>
       </div>
     </div>
   );
