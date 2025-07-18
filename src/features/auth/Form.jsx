@@ -1,8 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "../../utils/validationSchema";
 import ReCAPTCHA from "react-google-recaptcha";
+import { loginApi } from "../../api/loginApi";
 import EmailInput from "./EmailInput";
 import PwdInput from "./PwdInput";
 
@@ -12,20 +13,37 @@ export default function Form() {
     handleSubmit,
     setValue,
     trigger,
-    formState: { errors },
-  } = useForm({ resolver: yupResolver(loginSchema) });
+    formState: { isSubmitting, errors },
+    reset,
+  } = useForm({ resolver: yupResolver(loginSchema), mode: "onBlur" });
+
+  const recaptchaRef = useRef(null);
+
+  const RECAPTCHA_NAME = "ReCAPTCHA";
 
   useEffect(() => {
-    register("ReCAPTCHA");
+    register(RECAPTCHA_NAME);
   }, [register]);
 
   const onRecaptchaChange = (token) => {
-    setValue("ReCAPTCHA", token);
-    trigger("ReCAPTCHA");
+    setValue(RECAPTCHA_NAME, token);
+    trigger(RECAPTCHA_NAME);
   };
 
-  const onSubmit = (data) => {
-    console.log("表單資料", data);
+  const onSubmit = async (data) => {
+    try {
+      console.log("表單提交中...", data);
+      await loginApi(data);
+
+      console.log("表單提交成功！");
+    } catch (err) {
+      console.error("表單提交失敗:", err);
+    } finally {
+      reset();
+      if (recaptchaRef.current) {
+        recaptchaRef.current.reset();
+      }
+    }
   };
 
   return (
@@ -41,6 +59,7 @@ export default function Form() {
         <div className="flex justify-center">
           <ReCAPTCHA
             onChange={onRecaptchaChange}
+            ref={recaptchaRef}
             sitekey="6LdcQoUrAAAAAE5xIrwWCxdIbqI9v1Y7c4CUtGIe"
             hl="zh-TW"
           />
@@ -55,9 +74,10 @@ export default function Form() {
       <div className="flex justify-center">
         <button
           type="submit"
-          className="w-xs px-4 py-3 font-semibold text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-300 cursor-pointer"
+          disabled={isSubmitting}
+          className="w-xs px-4 py-3 font-semibold text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-300 cursor-pointer disabled:bg-blue-200 disabled:cursor-not-allowed"
         >
-          登入
+          {isSubmitting ? "登入中..." : "登入"}
         </button>
       </div>
     </form>
