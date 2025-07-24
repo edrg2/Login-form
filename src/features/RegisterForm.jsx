@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { registerSchema } from "../utils/validationSchema";
@@ -14,10 +15,10 @@ export default function RegisterForm() {
     handleSubmit,
     control,
     formState: { isSubmitting, errors },
-    reset,
   } = useForm({ resolver: yupResolver(registerSchema), mode: "onBlur" });
 
   const recaptchaRef = useRef(null);
+  const navigate = useNavigate();
 
   // 表單提交
   const onSubmit = async (data) => {
@@ -31,11 +32,15 @@ export default function RegisterForm() {
       await registerApi(apiData);
 
       console.log("表單提交成功！");
-      reset();
+      navigate("/login");
     } catch (err) {
       console.error("表單提交失敗:", err);
+      if (recaptchaRef.current) {
+        recaptchaRef.current.reset();
+      }
     }
   };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-4">
       {/* 使用者名稱 Input */}
@@ -80,7 +85,7 @@ export default function RegisterForm() {
         autoComplete="new-password"
         register={register}
         errors={errors}
-        showPwdBtn={false}
+        showPwdBtn={true}
         showForgotPwdLink={false}
       />
 
