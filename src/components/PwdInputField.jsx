@@ -10,6 +10,7 @@ export default function PwdInputField({
   autoComplete,
   register,
   errors,
+  showPwdBtn = true,
   showForgotPwdLink = false,
   ...rest // 蒐集原生屬性，含className
 }) {
@@ -30,25 +31,27 @@ export default function PwdInputField({
           <input
             id={name}
             name={name}
-            type={showPwd ? "text" : "password"}
+            type={showPwdBtn ? (showPwd ? "text" : "password") : "password"}
             {...register(name)}
             placeholder={label}
             autoComplete={autoComplete}
             className="w-full py-2 pl-4 pr-11 text-gray-900 border rounded-md focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
             {...rest}
           />
-          <button
-            type="button"
-            onClick={() => setShowPwd(!showPwd)}
-            className="absolute inset-y-0 right-0 flex items-center pr-3"
-            aria-label={showPwd ? "隱藏密碼" : "顯示密碼"}
-          >
-            <FontAwesomeIcon
-              icon={showPwd ? "eye-slash" : "eye"}
-              className="text-lg text-gray-700 hover:text-gray-500 cursor-pointer"
-              fixedWidth
-            />
-          </button>
+          {showPwdBtn && (
+            <button
+              type="button"
+              onClick={() => setShowPwd(!showPwd)}
+              className="absolute inset-y-0 right-0 flex items-center pr-3"
+              aria-label={showPwd ? "隱藏密碼" : "顯示密碼"}
+            >
+              <FontAwesomeIcon
+                icon={showPwd ? "eye-slash" : "eye"}
+                className="text-lg text-gray-700 hover:text-gray-500 cursor-pointer"
+                fixedWidth
+              />
+            </button>
+          )}
         </div>
       </div>
 
