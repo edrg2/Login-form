@@ -9,7 +9,11 @@ import App from "./App.jsx";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
-      <Toaster position="top-center" reverseOrder={false} />
+      <Toaster
+        position="bottom-center"
+        reverseOrder={false}
+        containerStyle={{ bottom: 80 }}
+      />
       <App />
     </BrowserRouter>
   </StrictMode>

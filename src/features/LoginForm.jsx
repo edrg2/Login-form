@@ -1,11 +1,13 @@
 import { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import toast from "react-hot-toast";
 import { loginSchema } from "../utils/validationSchema";
-import { loginApi } from "../api/authApi";
+import { loginApiCall } from "../api/authApiCall";
 import InputField from "../components/InputField";
 import PwdInputField from "../components/PwdInputField";
 import RecaptchaField from "../components/RecaptchaField";
+import CheckIcon from "../assets/check.svg?react";
 
 export default function LoginForm() {
   const {
@@ -20,11 +22,38 @@ export default function LoginForm() {
 
   // 表單提交
   const onSubmit = async (data) => {
-    try {
-      console.log("表單提交中...");
-      await loginApi(data);
+    const promise = loginApiCall(data);
 
-      console.log("表單提交成功！");
+    toast.promise(
+      promise,
+      {
+        loading: "正在登入中，請稍後...",
+        success: "登入成功！歡迎回來",
+        error: (err) => `登入失敗: ${err.toString()}`,
+      },
+      {
+        style: {
+          fontWeight: "bold",
+        },
+        success: {
+          style: {
+            color: "white",
+            backgroundColor: "#88EF98",
+          },
+          duration: 3000,
+        },
+        error: {
+          style: {
+            color: "white",
+            backgroundColor: "#F07C7C",
+          },
+          duration: 3000,
+        },
+      }
+    );
+
+    try {
+      await promise;
     } catch (err) {
       console.error("表單提交失敗:", err);
     } finally {

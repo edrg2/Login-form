@@ -2,8 +2,9 @@ import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import toast from "react-hot-toast";
 import { registerSchema } from "../utils/validationSchema";
-import { registerApi } from "../api/authApi";
+import { registerApiCall } from "../api/authApiCall";
 import InputField from "../components/InputField";
 import PwdInputField from "../components/PwdInputField";
 import CheckboxField from "../components/CheckboxField";
@@ -27,11 +28,39 @@ export default function RegisterForm() {
       terms: _terms,
       ...apiData
     } = data;
-    try {
-      console.log("表單提交中...");
-      await registerApi(apiData);
 
-      console.log("表單提交成功！");
+    const promise = registerApiCall(apiData);
+
+    toast.promise(
+      promise,
+      {
+        loading: "正在註冊中，請稍後...",
+        success: "註冊成功！請登入",
+        error: (err) => `註冊失敗：${err.toString()}`,
+      },
+      {
+        style: {
+          fontWeight: "bold",
+        },
+        success: {
+          style: {
+            color: "white",
+            backgroundColor: "#88EF98",
+          },
+          duration: 3000,
+        },
+        error: {
+          style: {
+            color: "white",
+            backgroundColor: "#F07C7C",
+          },
+          duration: 3000,
+        },
+      }
+    );
+
+    try {
+      await promise;
       navigate("/login");
     } catch (err) {
       console.error("表單提交失敗:", err);
