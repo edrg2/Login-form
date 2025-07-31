@@ -7,7 +7,6 @@ import { loginApiCall } from "../api/authApiCall";
 import InputField from "../components/InputField";
 import PwdInputField from "../components/PwdInputField";
 import RecaptchaField from "../components/RecaptchaField";
-import CheckIcon from "../assets/check.svg?react";
 
 export default function LoginForm() {
   const {

@@ -102,7 +102,7 @@ export default function RegisterForm() {
         autoComplete="new-password"
         register={register}
         errors={errors}
-        showPwdBtn={true}
+        showPwdBtn={false}
         showForgotPwdLink={false}
       />
 

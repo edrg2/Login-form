@@ -31,7 +31,7 @@ export default function PwdInputField({
           <input
             id={name}
             name={name}
-            type={showPwdBtn ? (showPwd ? "text" : "password") : "password"}
+            type={showPwdBtn ? (showPwd ? "text" : "password") : "text"}
             {...register(name)}
             placeholder={label}
             autoComplete={autoComplete}
