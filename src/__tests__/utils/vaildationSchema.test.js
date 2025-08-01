@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { loginSchema, registerSchema } from "../utils/validationSchema";
+import { loginSchema, registerSchema } from "../../utils/validationSchema";
 
 const getValidationError = async (schema, data) => {
   try {

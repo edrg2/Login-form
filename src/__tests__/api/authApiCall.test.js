@@ -6,7 +6,7 @@ import {
   mockRegisterApiCall,
   axiosLoginApiCall,
   axiosRegisterApiCall,
-} from "../api/authApiCall";
+} from "../../api/authApiCall";
 
 vi.mock("axios");
 
