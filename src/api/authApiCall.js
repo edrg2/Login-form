@@ -1,7 +1,32 @@
 import axios from "axios";
 
+// --- Mock (promise) 版本 API
+export const mockLoginApiCall = (data) => {
+  return new Promise((resolve, reject) =>
+    setTimeout(() => {
+      if (data.password === "Password123") {
+        resolve({ id: 1, email: data.email, name: "Mock User" });
+      } else {
+        reject(new Error("密碼不一致"));
+      }
+    }, 1500)
+  );
+};
+
+export const mockRegisterApiCall = (data) => {
+  return new Promise((resolve, reject) =>
+    setTimeout(() => {
+      if (data.email === "test@example.com") {
+        reject(new Error("此電子郵件已被註冊"));
+      } else {
+        resolve({ id: 2, email: data.email, name: "New Mock User" });
+      }
+    }, 1500)
+  );
+};
+
 // --- Axios (json-server) 版本 API ---
-const axiosLoginApiCall = async (data) => {
+export const axiosLoginApiCall = async (data) => {
   const { email, password } = data;
 
   const response = await axios.get(`/api/users?email=${email}`);
@@ -20,7 +45,7 @@ const axiosLoginApiCall = async (data) => {
   return userToReturn;
 };
 
-const axiosRegisterApiCall = async (data) => {
+export const axiosRegisterApiCall = async (data) => {
   const { email, password } = data;
 
   const checkResponse = await axios.get(`/api/users?email=${email}`);
@@ -32,27 +57,6 @@ const axiosRegisterApiCall = async (data) => {
   const newUserResponse = await axios.post("/api/users", { email, password });
 
   return newUserResponse.data;
-};
-
-// --- Mock (promise) 版本 API
-const mockLoginApiCall = (data) => {
-  return new Promise((resolve, reject) =>
-    setTimeout(() => {
-      if (data.password === "Password123") {
-        resolve({ id: 1, email: data.email, name: "Mock User" });
-      } else {
-        reject(new Error("帳號或密碼不一致"));
-      }
-    }, 1500)
-  );
-};
-
-const mockRegisterApiCall = (data) => {
-  return new Promise((resolve) =>
-    setTimeout(() => {
-      resolve({ id: 2, email: data.email, name: "New Mock User" });
-    }, 1500)
-  );
 };
 
 const isMockMode = import.meta.env.VITE_API_MODE === "mock";
