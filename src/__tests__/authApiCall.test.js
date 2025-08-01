@@ -10,7 +10,9 @@ import {
 
 vi.mock("axios");
 
-// --- Mock API (本地Promise) 單元測試 ---
+// ======================================
+//     Mock API (本地Promise) 單元測試
+// ======================================
 describe("Mock API (本地Promise) 呼叫", () => {
   describe("mockLoginApiCall", () => {
     it("當 email 和 password 正確時，應 resolve 並回傳使用者資料", async () => {
@@ -64,7 +66,9 @@ describe("Mock API (本地Promise) 呼叫", () => {
   });
 });
 
+// ======================================
 // --- Axios API (JSON伺服器) 單元測試 ---
+// ======================================
 describe("Axios API (JSON伺服器) 呼叫", () => {
   beforeEach(() => {
     vi.resetAllMocks();
