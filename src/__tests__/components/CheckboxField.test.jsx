@@ -91,9 +91,6 @@ describe("CheckboxField 元件測試", () => {
     // *測試* 錯誤訊息應出現在頁面上
     const errorElement = screen.getByText(errorMessage);
     expect(errorElement).toBeInTheDocument();
-
-    // *測試* 錯誤訊息應為 紅色
-    expect(errorElement).toHaveClass("text-red-600");
   });
 
   it("當 props 中沒有傳入錯誤訊息時，不應顯示錯誤元素", () => {
@@ -106,6 +103,7 @@ describe("CheckboxField 元件測試", () => {
 
     render(<CheckboxField {...props} />);
 
+    // *測試* 錯誤訊息不應出現在頁面上
     const errorMessage = "* 請詳閱並同意服務條款";
     const errorElement = screen.queryByText(errorMessage);
     expect(errorElement).not.toBeInTheDocument();

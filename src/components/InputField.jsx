@@ -19,6 +19,7 @@ export default function InputField({
           <span className="sr-only">{label}</span>
           <FontAwesomeIcon
             icon={icon}
+            data-testid={`icon-${name}`}
             className="text-gray-700 text-2xl"
             fixedWidth
           />
