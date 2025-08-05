@@ -72,6 +72,29 @@ describe("InputField 元件測試", () => {
     expect(inputElement).toHaveValue("testUser");
   });
 
+  it("當使用者點擊 label 時，input 應改成 focus 狀態", async () => {
+    const props = {
+      icon: "user",
+      label: "使用者名稱",
+      name: "username",
+      register: mockRegister,
+      errors: {},
+    };
+    const user = userEvent.setup();
+
+    render(<InputField {...props} />);
+
+    const inputElement = screen.getByLabelText("使用者名稱");
+    const labelElement = screen.getByText("使用者名稱").parentElement;
+
+    // *測試* 確認 input 初始狀態不是 focus
+    expect(inputElement).not.toHaveFocus();
+
+    // *測試* 確認點擊 label 後，input 是否為 focus
+    await user.click(labelElement);
+    expect(inputElement).toHaveFocus();
+  });
+
   // --- 錯誤訊息顯示 ---
   it("當 props 中傳入錯誤訊息時，應顯示該錯誤", () => {
     const errorMessage = "* 電子郵件格式不正確";
@@ -94,7 +117,7 @@ describe("InputField 元件測試", () => {
     expect(errorElement).toBeInTheDocument();
   });
 
-  it("當 props 中沒有傳入錯誤訊息時，不應顯示錯誤元素", () => {
+  it("當 props 中沒有傳入錯誤訊息時，不應顯示錯誤", () => {
     const props = {
       icon: "envelope",
       label: "電子郵件",
@@ -114,17 +137,17 @@ describe("InputField 元件測試", () => {
   // --- 整合測試 (React Hook Form) ---
   it("應使用傳入的 name 呼叫 register 函式", () => {
     const props = {
-      icon: "lock",
+      icon: "envelope",
       label: "密碼",
-      name: "password", // 使用一個特定的 name 來驗證
+      name: "email", // 使用一個特定的 name 來驗證
       register: mockRegister,
       errors: {},
     };
 
     render(<InputField {...props} />);
 
-    // 測試 register 函數是否被以正確的 name 調用
-    expect(mockRegister).toHaveBeenCalledWith("password");
+    // *測試* register 函數是否被以正確的 name 調用
+    expect(mockRegister).toHaveBeenCalledWith("email");
     expect(mockRegister).toHaveBeenCalledTimes(1);
   });
 });
