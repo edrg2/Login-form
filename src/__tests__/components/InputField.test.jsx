@@ -49,6 +49,32 @@ describe("InputField 元件測試", () => {
     expect(iconElement).toHaveAttribute("data-icon-name", "user");
   });
 
+  it("應正確傳遞 autoComplete 和其他 rest props", () => {
+    const props = {
+      icon: "envlope",
+      label: "使用者名稱",
+      name: "email",
+      type: "email",
+      register: mockRegister,
+      errors: {},
+      autoComplete: "email",
+      className: "custom-class",
+    };
+
+    render(<InputField {...props} />);
+
+    const inputElement = screen.getByLabelText("使用者名稱");
+
+    // *測試* input 的 type 是否為傳入的 'email'
+    expect(inputElement).toHaveAttribute("type", "email");
+
+    // *測試* autoComplete 屬性
+    expect(inputElement).toHaveAttribute("autoComplete", "email");
+
+    // *測試* ...rest 傳遞的 className
+    expect(inputElement).toHaveClass("custom-class");
+  });
+
   // --- 使用者互動 ---
   it("當使用者在 input 中輸入文字時，應能正確更新其值", async () => {
     const props = {

@@ -103,7 +103,6 @@ export default function RegisterForm() {
         register={register}
         errors={errors}
         showPwdBtn={false}
-        showForgotPwdLink={false}
       />
 
       {/* 確認密碼 Input */}
@@ -115,7 +114,6 @@ export default function RegisterForm() {
         register={register}
         errors={errors}
         showPwdBtn={true}
-        showForgotPwdLink={false}
       />
 
       {/* ReCAPTCHA驗證 */}

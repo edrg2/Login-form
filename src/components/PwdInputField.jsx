@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import toast from "react-hot-toast";
 
 export default function PwdInputField({
   icon = "lock",
@@ -16,6 +17,19 @@ export default function PwdInputField({
 }) {
   const [showPwd, setShowPwd] = useState(false);
 
+  const handleForgetPwdClick = (e) => {
+    e.preventDefault();
+    toast.error("此連結僅限展示，並無實際用途", {
+      duration: 2000,
+      icon: "👾",
+      style: {
+        fontWeight: "bold",
+        color: "white",
+        backgroundColor: "#E8AB61",
+      },
+    });
+  };
+
   return (
     <div>
       <div className="flex items-center space-x-3">
@@ -23,7 +37,7 @@ export default function PwdInputField({
           <span className="sr-only">{label}</span>
           <FontAwesomeIcon
             icon={icon}
-            data-testid={`icon-${name}`}
+            data-testid={`icon-label`}
             className="text-gray-700 text-2xl"
             fixedWidth
           />
@@ -48,7 +62,7 @@ export default function PwdInputField({
             >
               <FontAwesomeIcon
                 icon={showPwd ? "eye-slash" : "eye"}
-                data-testid={`icon-${icon}`}
+                data-testid={`icon-buttom`}
                 className="text-lg text-gray-700 hover:text-gray-500 cursor-pointer"
                 fixedWidth
               />
@@ -67,6 +81,7 @@ export default function PwdInputField({
           <div className="ml-auto mt-1 text-sm">
             <a
               href="#"
+              onClick={handleForgetPwdClick}
               className="font-medium text-blue-700 hover:text-blue-500"
             >
               忘記密碼?
