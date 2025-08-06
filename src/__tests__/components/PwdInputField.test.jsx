@@ -66,7 +66,7 @@ describe("PwdInputField 元件測試", async () => {
       expect(buttonElement).toBeInTheDocument();
 
       // *測試* button-icon 應顯示在畫面上
-      const buttonIconElement = screen.getByTestId("icon-buttom");
+      const buttonIconElement = screen.getByTestId("icon-button");
       expect(buttonIconElement).toBeInTheDocument();
       expect(buttonIconElement).toHaveAttribute("data-icon-name", "eye");
 

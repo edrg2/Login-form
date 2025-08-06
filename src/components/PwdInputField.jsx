@@ -62,7 +62,7 @@ export default function PwdInputField({
             >
               <FontAwesomeIcon
                 icon={showPwd ? "eye-slash" : "eye"}
-                data-testid={`icon-buttom`}
+                data-testid={`icon-button`}
                 className="text-lg text-gray-700 hover:text-gray-500 cursor-pointer"
                 fixedWidth
               />
