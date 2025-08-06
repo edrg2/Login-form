@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import { forwardRef } from "react";
 import { Controller } from "react-hook-form";
 import ReCAPTCHA from "react-google-recaptcha";
 
@@ -7,6 +7,7 @@ const RecaptchaField = forwardRef(({ control, name, errors }, ref) => {
     <div>
       <div className="flex justify-center">
         <Controller
+          data-testid="mock-recaptcha"
           name={name}
           control={control}
           render={({ field }) => (
