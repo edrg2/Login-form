@@ -42,6 +42,7 @@ export default defineConfig([
         "warn",
         { varsIgnorePattern: "^_", argsIgnorePattern: "^_" },
       ],
+      "react/prop-types": "off",
     },
   },
 ]);

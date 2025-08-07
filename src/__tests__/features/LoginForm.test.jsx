@@ -2,7 +2,6 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import LoginForm from "../../features/LoginForm";
-import { loginSchema } from "../../utils/validationSchema";
 
 // Mock API 請求
 vi.mock("../../api/authApiCall", () => ({
