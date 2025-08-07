@@ -12,6 +12,12 @@ export default defineConfig([
       "react-hooks": reactHooks,
       "react-refresh": reactRefresh,
     },
+    extends: [
+      "eslint:recommended",
+      "plugin:react/recommended",
+      "plugin:react/jsx-runtime",
+      "plugin:react-hooks/recommended",
+    ],
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "module",
