@@ -214,7 +214,7 @@ describe("registerSchema", () => {
       const errors = await getValidationError(registerSchema, invalidData);
 
       // *測試*
-      expect(errors.confirmPassword).toBe("兩次輸入的密碼不一致");
+      expect(errors.confirmPassword).toBe("* 兩次輸入的密碼不一致");
     });
   });
 
@@ -252,7 +252,7 @@ describe("registerSchema", () => {
       username: "* 使用者名稱至少需要 3 個字元",
       email: "* 請輸入有效的電子郵件格式",
       password: "* 密碼須至少 8 碼，且包含大小寫英文及數字",
-      confirmPassword: "兩次輸入的密碼不一致",
+      confirmPassword: "* 兩次輸入的密碼不一致",
       terms: "* 請詳閱並同意服務條款",
       ReCAPTCHA: "* 請勾選完成驗證",
     });

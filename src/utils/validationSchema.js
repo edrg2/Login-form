@@ -36,7 +36,7 @@ export const registerSchema = yup
       .required("* 此為必填欄位"),
     confirmPassword: yup
       .string()
-      .oneOf([yup.ref("password"), null], "兩次輸入的密碼不一致")
+      .oneOf([yup.ref("password"), null], "* 兩次輸入的密碼不一致")
       .required("* 此為必填欄位"),
     terms: yup
       .boolean()

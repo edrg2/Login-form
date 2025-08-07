@@ -62,7 +62,7 @@ describe("LoginForm 整合測試", () => {
     vi.resetAllMocks();
   });
 
-  // Happy Path
+  // --- Happy Path ---
   it("當使用者輸入有效資料並提交時，應成功呼叫 API 並顯示 toast 成功訊息重設表單", async () => {
     const user = userEvent.setup();
 
@@ -112,7 +112,7 @@ describe("LoginForm 整合測試", () => {
     });
   });
 
-  // Sad Path #1: 驗證失敗
+  // --- Sad Path #1: 驗證失敗 ---
   it("當使用者未輸入任何資料就提交時，應顯示驗證錯誤訊息", async () => {
     const user = userEvent.setup();
     render(<LoginForm />);
@@ -126,11 +126,12 @@ describe("LoginForm 整合測試", () => {
     ).toBeInTheDocument();
     expect(await screen.findByText("* 請勾選完成驗證")).toBeInTheDocument();
 
-    // *測試* 確認無呼叫API
+    // *測試* 確認無呼叫 API 與 toast
     expect(loginApiCall).not.toHaveBeenCalled();
+    expect(toast.promise).not.toHaveBeenCalled();
   });
 
-  // Sad Path #2: API 呼叫失敗
+  // --- Sad Path #2: API 呼叫失敗 ---
   it("當 API 請求失敗時，應顯示 toast 錯誤訊息並重設表單", async () => {
     const user = userEvent.setup();
     const errorMessage = "帳號或密碼錯誤";
@@ -142,10 +143,8 @@ describe("LoginForm 整合測試", () => {
     // 這裡需要讓 toast.promise 能處理 reject 的情況
     toast.promise.mockImplementation((promise, options) => {
       return promise.catch((err) => {
-        if (options.error && typeof options.error === "function") {
-          options.error(err);
-          mockToastErrorCallback(err);
-        }
+        options.error(err);
+        mockToastErrorCallback(err);
       });
     });
 
