@@ -29,4 +29,6 @@ const RecaptchaField = forwardRef(({ control, name, errors }, ref) => {
   );
 });
 
+RecaptchaField.displayName = "RecaptchaField";
+
 export default RecaptchaField;
