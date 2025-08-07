@@ -12,12 +12,6 @@ export default defineConfig([
       "react-hooks": reactHooks,
       "react-refresh": reactRefresh,
     },
-    extends: [
-      "eslint:recommended",
-      "plugin:react/recommended",
-      "plugin:react/jsx-runtime",
-      "plugin:react-hooks/recommended",
-    ],
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "module",
@@ -32,6 +26,7 @@ export default defineConfig([
     },
     rules: {
       ...js.configs.recommended.rules,
+      ...react.configs["jsx-runtime"].rules,
       ...reactHooks.configs.recommended.rules,
       "react-refresh/only-export-components": "warn",
       "no-unused-vars": [
