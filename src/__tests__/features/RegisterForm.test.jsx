@@ -67,8 +67,7 @@ const { registerApiCall } = await import("../../api/authApiCall");
 const toast = (await import("react-hot-toast")).default;
 
 describe("RegisterForm 整合測試", () => {
-  beforeEach(async () => {
-    vi.clearAllMocks();
+  beforeEach(() => {
     vi.resetAllMocks();
   });
 
@@ -101,6 +100,10 @@ describe("RegisterForm 整合測試", () => {
     await user.click(screen.getByRole("checkbox", { name: /請同意並勾選/i }));
 
     await user.click(screen.getByRole("button", { name: /註冊/i }));
+
+    // *測試* 按鈕是否在中間狀態
+    const submittingButton = screen.getByRole("button", { name: "註冊中..." });
+    expect(submittingButton).toBeDisabled();
 
     // *測試* API傳送的資料是否正確
     expect(registerApiCall).toHaveBeenCalledWith({

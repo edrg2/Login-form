@@ -58,7 +58,6 @@ const toast = (await import("react-hot-toast")).default;
 
 describe("LoginForm 整合測試", () => {
   beforeEach(() => {
-    vi.clearAllMocks();
     vi.resetAllMocks();
   });
 
@@ -66,7 +65,11 @@ describe("LoginForm 整合測試", () => {
   it("當使用者輸入有效資料並提交時，應成功呼叫 API 並顯示 toast 成功訊息重設表單", async () => {
     const user = userEvent.setup();
 
-    loginApiCall.mockResolvedValue({ success: true });
+    let resolveLogin;
+    const loginPromise = new Promise((resolve) => {
+      resolveLogin = resolve;
+    });
+    loginApiCall.mockReturnValue(loginPromise);
     toast.promise.mockImplementation((promise) => promise);
 
     render(<LoginForm />);
@@ -81,8 +84,12 @@ describe("LoginForm 整合測試", () => {
 
     await user.click(screen.getByRole("button", { name: /登入/i }));
 
-    // *測試* 呼叫 toast.promise，並檢查傳入的訊息
+    // *測試* 按鈕是否在中間狀態
+    const submittingButton = screen.getByRole("button", { name: "登入中..." });
+    expect(submittingButton).toBeDisabled();
+
     await waitFor(() => {
+      // *測試* 呼叫 toast.promise，並檢查傳入的訊息
       expect(toast.promise).toHaveBeenCalledWith(
         expect.any(Promise),
         {
@@ -92,10 +99,8 @@ describe("LoginForm 整合測試", () => {
         },
         expect.any(Object)
       );
-    });
 
-    // *測試* 呼叫API
-    await waitFor(() => {
+      // *測試* 呼叫API
       expect(loginApiCall).toHaveBeenCalledTimes(1);
       expect(loginApiCall).toHaveBeenCalledWith({
         email: "test@example.com",
@@ -104,11 +109,14 @@ describe("LoginForm 整合測試", () => {
       });
     });
 
+    await resolveLogin({ success: true });
+
     // *測試* 3: 重設表單和 reCAPTCHA
     await waitFor(() => {
       expect(emailInput.value).toBe("");
       expect(passwordInput.value).toBe("");
       expect(mockRecaptchaReset).toHaveBeenCalledTimes(1);
+      expect(screen.getByRole("button", { name: "登入" })).toBeEnabled();
     });
   });
 
