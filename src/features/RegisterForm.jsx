@@ -61,7 +61,7 @@ export default function RegisterForm() {
 
     try {
       await promise;
-      navigate("/login");
+      navigate("login");
     } catch (err) {
       console.error("表單提交失敗:", err);
       if (recaptchaRef.current) {
