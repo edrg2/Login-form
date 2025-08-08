@@ -10,7 +10,7 @@ export default defineConfig(({ mode }) => {
     plugins: [react(), tailwindcss()],
 
     // github 路徑設定
-    base: env.GITHUB_PAGES_DEPLOY === "ture" ? "/Login-form/" : "/",
+    base: env.GITHUB_PAGES_DEPLOY === "true" ? "/Login-form/" : "/",
 
     // json-server
     server: {
