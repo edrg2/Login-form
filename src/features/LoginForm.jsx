@@ -79,7 +79,7 @@ export default function LoginForm() {
       {/* 密碼 Input */}
       <PwdInputField
         icon="lock"
-        label="密碼"
+        label='密碼 "Password123" to success'
         name="password"
         autoComplete="current-password"
         register={register}

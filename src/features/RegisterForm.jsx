@@ -86,7 +86,7 @@ export default function RegisterForm() {
       {/* 電子郵件 Input */}
       <InputField
         icon="envelope"
-        label="電子郵件"
+        label='電子郵件 "test@example.com" to fail'
         name="email"
         type="email"
         autoComplete="email"

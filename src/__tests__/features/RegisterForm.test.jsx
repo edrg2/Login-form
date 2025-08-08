@@ -93,7 +93,7 @@ describe("RegisterForm 整合測試", () => {
     render(<TestComponent />);
 
     await user.type(screen.getByLabelText("使用者名稱"), "testuser");
-    await user.type(screen.getByLabelText("電子郵件"), "test@example.com");
+    await user.type(screen.getByLabelText(/電子郵件/i), "test@example.com");
     await user.type(screen.getByLabelText("密碼"), "Password123");
     await user.type(screen.getByLabelText("確認密碼"), "Password123");
     await user.click(screen.getByTestId("mock-recaptcha"));
@@ -186,7 +186,7 @@ describe("RegisterForm 整合測試", () => {
     render(<TestComponent />);
 
     await user.type(screen.getByLabelText("使用者名稱"), "testuser");
-    await user.type(screen.getByLabelText("電子郵件"), "test@example.com");
+    await user.type(screen.getByLabelText(/電子郵件/i), "test@example.com");
     await user.type(screen.getByLabelText("密碼"), "Password123");
     await user.type(screen.getByLabelText("確認密碼"), "Password123");
     await user.click(screen.getByTestId("mock-recaptcha"));

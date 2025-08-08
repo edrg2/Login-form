@@ -73,8 +73,8 @@ describe("LoginForm 整合測試", () => {
 
     render(<LoginForm />);
 
-    const emailInput = screen.getByLabelText("電子郵件");
-    const passwordInput = screen.getByLabelText("密碼");
+    const emailInput = screen.getByLabelText(/電子郵件/i);
+    const passwordInput = screen.getByLabelText(/密碼/i);
 
     // 模擬輸入
     await user.type(emailInput, "test@example.com");
@@ -158,7 +158,7 @@ describe("LoginForm 整合測試", () => {
     render(<LoginForm />);
 
     await user.type(screen.getByLabelText(/電子郵件/i), "test@example.com");
-    await user.type(screen.getByLabelText("密碼"), "Password123");
+    await user.type(screen.getByLabelText(/密碼/i), "Password123");
     await user.click(screen.getByTestId("mock-recaptcha"));
 
     await user.click(screen.getByRole("button", { name: /登入/i }));
