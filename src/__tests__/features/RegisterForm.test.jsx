@@ -117,7 +117,7 @@ describe("RegisterForm 整合測試", () => {
 
     // *測試* 是否有呼叫 /login
     await waitFor(() => {
-      expect(mockNavigate).toHaveBeenCalledWith("/login");
+      expect(mockNavigate).toHaveBeenCalledWith("login");
       expect(mockNavigate).toHaveBeenCalledTimes(1);
     });
   });
