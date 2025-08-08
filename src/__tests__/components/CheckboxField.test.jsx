@@ -3,7 +3,14 @@ import userEvent from "@testing-library/user-event";
 import { describe, it, expect, vi } from "vitest";
 import CheckboxField from "../../components/CheckboxField";
 
+vi.mock("react-hot-toast", () => ({
+  default: {
+    error: vi.fn(),
+  },
+}));
+
 const mockRegister = vi.fn();
+const toast = (await import("react-hot-toast")).default;
 
 describe("CheckboxField 元件測試", () => {
   // --- 渲染 ---
@@ -70,6 +77,33 @@ describe("CheckboxField 元件測試", () => {
     const label = screen.getByText(/請同意並勾選/i);
     await user.click(label);
     expect(checkbox).toBeChecked();
+  });
+
+  it("當使用者點擊「忘記密碼」連結時，應呼叫 toast.error", async () => {
+    const props = {
+      name: "terms",
+      label: "請同意並勾選",
+      register: mockRegister,
+      errors: {},
+    };
+
+    const user = userEvent.setup();
+
+    render(<CheckboxField {...props} />);
+
+    // *測試* toast.error 是否被呼叫
+    const linkElement = screen.getByRole("link", { name: /服務條款/i });
+    await user.click(linkElement);
+    expect(toast.error).toHaveBeenCalledWith("此連結僅限展示，並無實際用途", {
+      duration: 2000,
+      icon: "👾",
+      style: {
+        fontWeight: "bold",
+        color: "white",
+        backgroundColor: "#E8AB61",
+      },
+    });
+    expect(toast.error).toHaveBeenCalledTimes(1);
   });
 
   // --- 錯誤訊息顯示 ---

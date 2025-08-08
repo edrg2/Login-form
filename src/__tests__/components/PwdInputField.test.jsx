@@ -23,10 +23,10 @@ vi.mock("react-hot-toast", () => ({
   },
 }));
 
-describe("PwdInputField 元件測試", async () => {
-  const mockRegister = vi.fn();
-  const toast = (await import("react-hot-toast")).default;
+const mockRegister = vi.fn();
+const toast = (await import("react-hot-toast")).default;
 
+describe("PwdInputField 元件測試", async () => {
   beforeEach(() => {
     vi.clearAllMocks();
     toast.error.mockClear();

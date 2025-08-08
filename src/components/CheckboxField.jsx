@@ -1,4 +1,19 @@
+import toast from "react-hot-toast";
+
 export default function CheckboxField({ name, label, register, errors }) {
+  const handleLinkClick = (e) => {
+    e.preventDefault();
+    toast.error("此連結僅限展示，並無實際用途", {
+      duration: 2000,
+      icon: "👾",
+      style: {
+        fontWeight: "bold",
+        color: "white",
+        backgroundColor: "#E8AB61",
+      },
+    });
+  };
+
   return (
     <div>
       <div className="flex ml-10.5 items-center">
@@ -11,7 +26,11 @@ export default function CheckboxField({ name, label, register, errors }) {
         />
         <label htmlFor={name} className="ml-2 block text-sm text-gray-900">
           {label}{" "}
-          <a href="#" className="font-medium text-blue-600 hover:underline">
+          <a
+            href="#"
+            onClick={handleLinkClick}
+            className="font-medium text-blue-600 hover:underline"
+          >
             服務條款
           </a>
         </label>
