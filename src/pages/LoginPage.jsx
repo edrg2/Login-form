@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import LoginForm from "../features/LoginForm";
 
 export default function LoginPage() {
@@ -9,12 +10,12 @@ export default function LoginPage() {
         <LoginForm />
         <p className="text-sm text-center text-gray-500">
           還沒有帳號?{" "}
-          <a
-            href="register"
+          <Link
+            to="/register"
             className="font-medium text-blue-700 hover:text-blue-500"
           >
             立即註冊
-          </a>
+          </Link>
         </p>
       </div>
     </div>
