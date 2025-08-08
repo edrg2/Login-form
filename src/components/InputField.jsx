@@ -6,6 +6,7 @@ export default function InputField({
   icon,
   label,
   name,
+  placeholder,
   type = "text",
   autoComplete,
   register,
@@ -30,7 +31,7 @@ export default function InputField({
           type={type}
           autoComplete={autoComplete}
           {...register(name)}
-          placeholder={label}
+          placeholder={placeholder ? placeholder : label}
           className="w-full py-2 px-4 text-gray-900 border rounded-md focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
           {...rest}
         />

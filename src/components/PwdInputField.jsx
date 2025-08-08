@@ -8,6 +8,7 @@ export default function PwdInputField({
   icon = "lock",
   label = "密碼",
   name,
+  placeholder,
   autoComplete,
   register,
   errors,
@@ -48,7 +49,7 @@ export default function PwdInputField({
             name={name}
             type={showPwdBtn ? (showPwd ? "text" : "password") : "text"}
             {...register(name)}
-            placeholder={label}
+            placeholder={placeholder ? placeholder : label}
             autoComplete={autoComplete}
             className="w-full py-2 pl-4 pr-11 text-gray-900 border rounded-md focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
             {...rest}
