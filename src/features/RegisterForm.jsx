@@ -15,6 +15,7 @@ export default function RegisterForm() {
     register,
     handleSubmit,
     control,
+    setValue,
     formState: { isSubmitting, errors },
   } = useForm({ resolver: yupResolver(registerSchema), mode: "onBlur" });
 
@@ -67,6 +68,7 @@ export default function RegisterForm() {
       if (recaptchaRef.current) {
         recaptchaRef.current.reset();
       }
+      setValue("ReCAPTCHA", null, { shouldValidate: true });
     }
   };
 

@@ -13,6 +13,7 @@ export default function LoginForm() {
     register,
     handleSubmit,
     control,
+    setValue,
     formState: { isSubmitting, errors },
     reset,
   } = useForm({ resolver: yupResolver(loginSchema), mode: "onBlur" });
@@ -60,6 +61,7 @@ export default function LoginForm() {
       if (recaptchaRef.current) {
         recaptchaRef.current.reset();
       }
+      setValue("ReCAPTCHA", null, { shouldValidate: true });
     }
   };
 
